@@ -1,13 +1,13 @@
 require './config/environment'
 
-class ApplicationController < Sinatra::Base
+class SignupController < Sinatra::Base
   set :public_folder, 'public'
   set :views, 'app/views'
   enable :sessions unless test?
   set :session_secret, "secret"
 
-  get '/' do
-    erb :index
+  get '/signup' do
+    erb :'/signup/index'
   end
 
 end
