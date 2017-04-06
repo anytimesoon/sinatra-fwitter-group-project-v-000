@@ -35,9 +35,10 @@ class TweetController < Sinatra::Base
     end
   end
 
-  get '/tweets/:slug' do
+  get '/tweets/:id' do
     if Helpers.is_logged_in?(session)
-      @user = User.find_by_slug(params[:slug])
+      @user = User.find(session[:user_id])
+      @tweet = Tweet.find(params[:id])
       erb :'/tweets/show'
     else
       redirect '/login'
