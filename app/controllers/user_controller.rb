@@ -6,19 +6,10 @@ class TweetController < Sinatra::Base
   enable :sessions unless test?
   set :session_secret, "secret"
 
-  get '/tweets' do
-    if Helpers.is_logged_in?(session)
-      @user = User.find(session[:user_id])
-      erb :'/tweets/index'
-    else
-      redirect '/login'
-    end
-  end
-
-  get '/tweets/:slug' do
+  get '/users/:slug' do
     if Helpers.is_logged_in?(session)
       @user = User.find_by_slug(params[:slug])
-      erb :'/tweets/show'
+      erb :'/users/show'
     else
       redirect '/login'
     end    
