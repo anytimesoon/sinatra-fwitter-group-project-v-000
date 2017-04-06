@@ -11,7 +11,7 @@ class TweetController < Sinatra::Base
       @user = User.find(session[:user_id])
       erb :'/tweets/index'
     else
-      redirect '/signup'
+      redirect '/login'
     end
   end
 
