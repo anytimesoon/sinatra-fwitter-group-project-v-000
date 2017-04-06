@@ -6,8 +6,9 @@ class TweetController < Sinatra::Base
   enable :sessions unless test?
   set :session_secret, "secret"
 
-  get '/tweet' do
-    if Helpers.is_logged_in?
+  get '/tweets' do
+    binding.pry
+    if Helpers.is_logged_in?(session)
       'hello world'
     else
       redirect '/signup'
