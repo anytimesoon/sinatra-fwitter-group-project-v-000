@@ -45,4 +45,23 @@ class TweetController < Sinatra::Base
     end
   end
 
+  patch '/tweets/:id' do
+    if Helpers.is_logged_in?(session)
+      params[:content] = nil if params[:content] == ""
+      tweet = Tweet.find(params[:id])
+      tweet.update(content: params[:content])
+      redirect "/tweets/#{tweet.id}/edit"
+    else
+      redirect '/login'
+    end
+  end
+
+  get '/tweets/:id/edit' do
+    if Helpers.is_logged_in?(session)
+      @tweet = Tweet.find(params[:id])
+      erb :'/tweets/edit'
+    else
+      redirect '/login'
+    end
+  end
 end
