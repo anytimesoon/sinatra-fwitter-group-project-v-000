@@ -15,6 +15,21 @@ class TweetController < Sinatra::Base
     end
   end
 
+  post '/tweets' do
+    user = User.find(session[:user_id])
+    Tweet.create(content: params[:content], user_id: user.id)
+    redirect '/tweets'
+  end
+
+  get 'tweets/new' do
+    if Helpers.is_logged_in?(session)
+      @user = User.find(session[:user_id])
+      erb :'/tweets/new'
+    else
+      redirect '/login'
+    end
+  end
+
   get '/tweets/:slug' do
     if Helpers.is_logged_in?(session)
       @user = User.find_by_slug(params[:slug])
